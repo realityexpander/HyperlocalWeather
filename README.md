@@ -6,14 +6,14 @@ Local Weather app using Compose
 
 - Allows user to get local weathercast from his current GPS location
 - Shows Hourly forecast for next 24 hours
-- Uses `open-meteo.com` api
+- Uses `https://open-meteo.com` api
 
 # Tech used
 - Retrofit for API calls and GSON & Kotlinx deserialization
 - Shows proper use of `Dagger-Hilt` & SOLID/CLEAN architecture
 - Uses compose for view layer, `ViewModel` and `mutableState` to send UI events
 - Uses Resource sealed class to handle errors, messaging, UI status
-- Accesses GPS location, converts responses to coroutines
+- Accesses GPS location, converts callbacks to coroutines
 - 
 
 To install the Apk:
