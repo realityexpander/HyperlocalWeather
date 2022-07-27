@@ -7,10 +7,11 @@ import com.realityexpander.weatherhere.domain.weather.WeatherInfo
 import com.realityexpander.weatherhere.domain.weather.WeatherType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 private data class IndexedWeatherData(
     val index: Int,
-    val data: WeatherData
+    val data: WeatherData,
 )
 
 fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
@@ -24,9 +25,9 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
             index = index,
             data = WeatherData(
                 time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
-                temperatureCelsius = temperature,
+                temperatureCelsius = ((temperature * 1.8 + 32.0) * 10).roundToInt() / 10.0, // convert to fahrenheit (rounded to 2 decimal places)
                 pressure = pressure,
-                windSpeed = windSpeed,
+                windSpeed = ((windSpeed * 1.609344) * 10).roundToInt() / 10.0, // convert from km/h to mph
                 humidity = humidity,
                 weatherType = WeatherType.fromWMO(weatherCode)
             )
@@ -42,7 +43,7 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
     val weatherDataMap = weatherData.toWeatherDataMap()
     val now = LocalDateTime.now()
     val currentWeatherData = weatherDataMap[0]?.find {
-        val hour = if(now.minute < 30) now.hour else now.hour + 1
+        val hour = if (now.minute < 30) now.hour else now.hour + 1
         it.time.hour == hour
     }
     return WeatherInfo(

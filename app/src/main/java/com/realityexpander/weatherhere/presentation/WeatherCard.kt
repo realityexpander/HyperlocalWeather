@@ -40,31 +40,35 @@ fun WeatherCard(
                 Text(
                     text = "Today ${
                         data.time.format(
-                            ofPattern("HH:mm")
+                            ofPattern("h:mm a")
                         )
                     }",
                     modifier = Modifier.align(Alignment.End),
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+
                 Image(
                     painter = painterResource(id = data.weatherType.iconRes),
                     contentDescription = null,
                     modifier = Modifier.width(200.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+
                 Text(
-                    text = "${data.temperatureCelsius}°C",
+                    text = "${data.temperatureCelsius}°F",
                     fontSize = 50.sp,
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+
                 Text(
                     text = data.weatherType.weatherDesc,
                     fontSize = 20.sp,
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(32.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
@@ -85,7 +89,7 @@ fun WeatherCard(
                     )
                     WeatherDataDisplay(
                         value = data.windSpeed.roundToInt(),
-                        unit = "km/h",
+                        unit = "mph",
                         icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
                         iconTint = Color.White,
                         textStyle = TextStyle(color = Color.White)

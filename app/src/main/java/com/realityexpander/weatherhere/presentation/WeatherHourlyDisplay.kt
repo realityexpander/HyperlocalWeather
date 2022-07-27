@@ -24,7 +24,7 @@ fun HourlyWeatherDisplay(
 ) {
     val formattedTime = remember(weatherData) {
         weatherData.time.format(
-            DateTimeFormatter.ofPattern("HH:mm")
+            DateTimeFormatter.ofPattern("h:mm a")
         )
     }
     Column(
@@ -42,7 +42,7 @@ fun HourlyWeatherDisplay(
             modifier = Modifier.width(40.dp)
         )
         Text(
-            text = "${weatherData.temperatureCelsius}°C",
+            text = "${weatherData.temperatureCelsius}°F",
             color = textColor,
             fontWeight = FontWeight.Bold
         )
