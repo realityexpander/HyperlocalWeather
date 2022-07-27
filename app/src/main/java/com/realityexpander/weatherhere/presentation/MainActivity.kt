@@ -1,4 +1,4 @@
-package com.realityexpander.weatherhere
+package com.realityexpander.weatherhere.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.realityexpander.weatherhere.ui.theme.WeatherHereTheme
+import com.realityexpander.weatherhere.presentation.ui.theme.WeatherHereTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

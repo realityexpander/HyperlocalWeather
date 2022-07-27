@@ -1,4 +1,4 @@
-package com.realityexpander.weatherhere.ui.theme
+package com.realityexpander.weatherhere.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
