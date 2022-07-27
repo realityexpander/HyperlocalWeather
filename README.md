@@ -9,7 +9,7 @@ Local Weather app using Compose
 - Uses [https://open-meteo.com](https://open-meteo.com) api
 
 # Tech used
-- Retrofit for API calls and GSON & Kotlinx deserialization
+- Retrofit for API calls and GSON & Mooshi deserialization
 - Shows proper use of `Dagger-Hilt` & SOLID/CLEAN architecture
 - Uses compose for view layer, `ViewModel` and `mutableState` to send UI events
 - Uses Resource sealed class to handle errors, messaging, UI status
