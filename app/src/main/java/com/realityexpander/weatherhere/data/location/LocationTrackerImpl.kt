@@ -15,7 +15,7 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 
 @ExperimentalCoroutinesApi
-class LLocationTrackerImpl @Inject constructor(
+class LocationTrackerImpl @Inject constructor(
     private val locationClient: FusedLocationProviderClient,
     private val application: Application
 ): LocationTracker {
