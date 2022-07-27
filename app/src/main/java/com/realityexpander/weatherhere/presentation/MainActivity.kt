@@ -25,6 +25,9 @@ import com.realityexpander.weatherhere.presentation.ui.theme.DeepBlue
 import com.realityexpander.weatherhere.presentation.ui.theme.WeatherHereTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+// Based on these designs:
+// https://dribbble.com/shots/17998271-Cuacane-Weather-App
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
