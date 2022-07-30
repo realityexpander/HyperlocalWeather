@@ -38,6 +38,7 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
         weatherData.index / 24
     }.also {
     }.mapValues { entry ->
+        // group by day
         entry.value.map { weatherData ->
             weatherData.data
         }
