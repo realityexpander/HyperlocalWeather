@@ -43,7 +43,7 @@ class LocationTrackerImpl @Inject constructor(
             locationClient.lastLocation.apply {
                 if(isComplete) {
                     if(isSuccessful) {
-                        cont.resume(result)
+                        cont.resume(this.result)
                     } else {
                         cont.resume(null)
                     }
