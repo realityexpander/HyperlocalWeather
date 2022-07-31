@@ -37,6 +37,8 @@ class LocationTrackerImpl @Inject constructor(
             return null
         }
 
+
+        // Convert callback to suspending coroutine
         return suspendCancellableCoroutine { cont ->
             locationClient.lastLocation.apply {
                 if(isComplete) {
