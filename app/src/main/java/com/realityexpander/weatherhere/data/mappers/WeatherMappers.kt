@@ -10,22 +10,25 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 private data class IndexedWeatherData(
-    val index: Int,
+    val index: Int,  // index is the hour of the day
     val data: WeatherData,
 )
 
 fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
 
-    return time.mapIndexed { index, time ->
+    // Map weatherData by each day for the next week, include 24 hours for each day
+    return this.time.mapIndexed { index, timeStr ->
         val temperature = temperatures[index]
         val weatherCode = weatherCodes[index]
         val windSpeed = windSpeeds[index]
         val pressure = pressures[index]
         val humidity = humidities[index]
+
+        // Convert the separate array of 168 hours (24hrs x 7days) into single hour weather objects
         IndexedWeatherData(
-            index = index,
+            index = index,  // index is the hour
             data = WeatherData(
-                time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
+                time = LocalDateTime.parse(timeStr, DateTimeFormatter.ISO_DATE_TIME),
                 temperatureCelsius = ((temperature * 1.8 + 32.0) * 10).roundToInt() / 10.0, // convert to fahrenheit (rounded to 2 decimal places)
                 pressure = pressure,
                 windSpeed = ((windSpeed * 1.609344) * 10).roundToInt() / 10.0, // convert from km/h to mph
@@ -35,19 +38,20 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
         )
     }.also {
     }.groupBy { weatherData->
-        weatherData.index / 24
+        weatherData.index / 24  // group by day (168 hours / 24 hours => 7 days)
     }.also {
-    }.mapValues { entry ->
-        // group by day
+    }.mapValues { entry -> // key=day, value=list of weather data for each hour
+        // group by day (for the week)
         entry.value.map { weatherData ->
-            weatherData.data
+            weatherData.data  // extract the weather data object
         }
     }.also {
+        // key = day, value = list of weather data for each hour
     }
 }
 
 fun WeatherDto.toWeatherInfo(): WeatherInfo {
-    val weatherDataMap = weatherData.toWeatherDataMap()
+    val weatherDataMap = this.weatherData.toWeatherDataMap()
     val now = LocalDateTime.now()
 
     // Find the closest weather data to the current time

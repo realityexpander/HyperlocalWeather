@@ -36,15 +36,21 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Setup the permission launcher & callback
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
+            // After we have permissions, we can get the weather
             viewModel.loadWeatherInfo()
         }
+
+        // Get permissions to access location (opens dialog)
         permissionLauncher.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
         ))
+
         setContent {
             WeatherHereTheme {
                 Box(
@@ -60,13 +66,16 @@ class MainActivity : ComponentActivity() {
                             backgroundColor = DeepBlue
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+
                         WeatherForecast(state = viewModel.state)
                     }
+
                     if(viewModel.state.isLoading) {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center)
                         )
                     }
+
                     viewModel.state.error?.let { error ->
                         Text(
                             text = error,
