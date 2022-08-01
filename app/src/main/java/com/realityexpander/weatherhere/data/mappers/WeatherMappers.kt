@@ -38,10 +38,11 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
         )
     }.also {
     }.groupBy { weatherData->
-        weatherData.index / 24  // group by day (168 hours / 24 hours => 7 days)
+        weatherData.index / 24  // group the weather data hours by day (168 hours / 24 hours => 7 days)
     }.also {
-    }.mapValues { entry -> // key=day, value=list of weather data for each hour
-        // group by day (for the week)
+        // key = day of the week, value = list of weather data for that day by hour
+    }.mapValues { entry ->
+        // extract the weather data for each hour from the list of weather data for that day
         entry.value.map { weatherData ->
             weatherData.data  // extract the weather data object
         }
