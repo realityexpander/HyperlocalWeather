@@ -10,23 +10,23 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 private data class IndexedWeatherData(
-    val index: Int,  // index is the hour of the day
+    val hourOfWeek: Int,  // 0-167 (hours in a week)
     val data: WeatherData,
 )
 
 fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
 
-    // Map weatherData by each day for the next week, include 24 hours for each day
-    return this.time.mapIndexed { index, timeStr ->
-        val temperature = temperatures[index]
-        val weatherCode = weatherCodes[index]
-        val windSpeed = windSpeeds[index]
-        val pressure = pressures[index]
-        val humidity = humidities[index]
+    // Map a week of hourly weatherData to Key = day of week (0-6), Value = list of hourly weatherData for that day (0-24)
+    return this.time.mapIndexed { hourOfWeek, timeStr ->
+        val temperature = temperatures[hourOfWeek]
+        val weatherCode = weatherCodes[hourOfWeek]
+        val windSpeed = windSpeeds[hourOfWeek]
+        val pressure = pressures[hourOfWeek]
+        val humidity = humidities[hourOfWeek]
 
         // Convert the separate array of 168 hours (24hrs x 7days) into single hour weather objects
         IndexedWeatherData(
-            index = index,  // index is the hour
+            hourOfWeek = hourOfWeek,
             data = WeatherData(
                 time = LocalDateTime.parse(timeStr, DateTimeFormatter.ISO_DATE_TIME),
                 temperatureCelsius = ((temperature * 1.8 + 32.0) * 10).roundToInt() / 10.0, // convert to fahrenheit (rounded to 2 decimal places)
@@ -39,15 +39,14 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
     }.also {
         // list of weather data by the hour (168 hours)
     }.groupBy { weatherData->
-        // this defines the group-key as the day of the week (0-6)
-        weatherData.index / 24  // group the weather data hours by day (168 hours / 24 hours => 7 days)
+        weatherData.hourOfWeek / 24  // sets the key as the day (0-6) (168 hours / 24 hours => 7 days)
     }.also {
-        // key = day of the week, value = list of weather data for that day by hour
-    }.mapValues { entry -> // key = day, value = list of weather data for that day by hour
-        // extract the weather data for the indexed day for each hour
-        entry.value.map { weatherData ->
-            weatherData.data  // extract the weather data object
-        }
+        // key = day of the week (0-6), value = list of weather data for that day by hour (0-24)
+    }.mapValues { entry -> // key = day, value = list of IndexedWeatherData for that day for each hour
+        // extract the weatherData from IndexedWeatherData for each day (ie: needed to remove the "hourOfWeek" field)
+        entry.value.map { weatherData -> // makes a new list of values for this day.
+            weatherData.data  // extract the WeatherData object and make it the new value for this hour of the day
+        } // mapValues returns a new set of values for this entry (key = day, value = new list of WeatherData for that day)
     }.also {
         // key = day of week, value = list of weather data for each hour (24)
     }
