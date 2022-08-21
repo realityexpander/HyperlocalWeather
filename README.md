@@ -4,7 +4,7 @@ Local Weather app using Compose
 [<img src="https://user-images.githubusercontent.com/5157474/181176637-b44aabd0-e8e8-4593-a7c0-861c50d461da.png" width="350"/>](https://user-images.githubusercontent.com/5157474/181176637-b44aabd0-e8e8-4593-a7c0-861c50d461da.png)
 
 
-- Allows user to get local weathercast from his current GPS location
+- Allows user to get local weathercast from their current GPS location
 - Shows Hourly forecast for next 24 hours
 - Uses [https://open-meteo.com](https://open-meteo.com) api
 
