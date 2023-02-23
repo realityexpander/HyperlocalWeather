@@ -1,8 +1,7 @@
 # WeatherHere
 Local Weather app using Compose
 
-[<img src="https://user-images.githubusercontent.com/5157474/181176637-b44aabd0-e8e8-4593-a7c0-861c50d461da.png" width="350"/>](https://user-images.githubusercontent.com/5157474/181176637-b44aabd0-e8e8-4593-a7c0-861c50d461da.png)
-
+[<img src="https://user-images.githubusercontent.com/5157474/220836110-eface564-3e0c-4874-be6d-28968b5d24f0.png" width="350"/>](https://user-images.githubusercontent.com/5157474/220836110-eface564-3e0c-4874-be6d-28968b5d24f0.png)
 
 - Allows user to get local weathercast from their current GPS location
 - Shows Hourly forecast for next 24 hours
