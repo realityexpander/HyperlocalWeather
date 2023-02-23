@@ -17,7 +17,7 @@ private val jsonDecodeLenientIgnoreUnknown = Json {
 suspend fun getCityCountryFromLatLng(
     lat: Double,
     long: Double
-): Pair<String, String> {
+): Triple<String, String, String> {
     return withContext(Dispatchers.IO) {
         val response =
             URL(
@@ -37,7 +37,8 @@ suspend fun getCityCountryFromLatLng(
         // Find a valid city name
         val city = result.city
         val country = result.countryName
+        val plusCode = result.plusCode
 
-        city to country
+        Triple(city, country, plusCode)
     }
 }

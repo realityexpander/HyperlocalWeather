@@ -6,18 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.realityexpander.weatherhere.data.remote.getCityCountryFromLatLng
-import com.realityexpander.weatherhere.data.remote.reverseGeocode.bigDataCloudReverseGeocodeResult
 import com.realityexpander.weatherhere.domain.location.LocationTracker
 import com.realityexpander.weatherhere.domain.repository.WeatherRepository
 import com.realityexpander.weatherhere.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import java.net.URL
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,11 +32,12 @@ class WeatherViewModel @Inject constructor(
 
             locationTracker.getCurrentLocation()?.let { location ->
 
-                getCityCountryFromLatLng(location.latitude, location.longitude).let { cityCountry ->
+                getCityCountryFromLatLng(location.latitude, location.longitude).let { cityCountryPlusCode ->
                     delay(500)
                     state = state.copy(
-                        city = cityCountry.first,
-                        country = cityCountry.second
+                        city = cityCountryPlusCode.first,
+                        country = cityCountryPlusCode.second,
+                        plusCode = cityCountryPlusCode.third
                     )
                 }
 

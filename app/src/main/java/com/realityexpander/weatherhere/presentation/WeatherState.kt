@@ -8,4 +8,5 @@ data class WeatherState(
     val error: String? = null,
     val city: String? = null,
     val country: String? = null,
+    val plusCode: String? = null
 )

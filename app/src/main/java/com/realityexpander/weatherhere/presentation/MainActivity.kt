@@ -94,8 +94,9 @@ class MainActivity : ComponentActivity() {
                                 Column {
                                     Spacer(modifier = Modifier.height(40.dp))
                                     Text(
-                                        text = "${viewModel.state.city}, ${viewModel.state.country}",
-                                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                                        text = "${viewModel.state.city}, ${viewModel.state.country}" +
+                                                "\n${viewModel.state.plusCode}",
+                                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
                                         textAlign = TextAlign.Center,
                                         modifier = Modifier
                                             .fillMaxWidth()
