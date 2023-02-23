@@ -1,4 +1,4 @@
-# Hyperlocal Weather 2
+# Hyperlocal Weather
 Local Weather app using Compose
 
 [<img src="https://user-images.githubusercontent.com/5157474/220836110-eface564-3e0c-4874-be6d-28968b5d24f0.png" width="350"/>](https://user-images.githubusercontent.com/5157474/220836110-eface564-3e0c-4874-be6d-28968b5d24f0.png)
