@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.realityexpander.weatherhere'
+    namespace 'com.realityexpander.hyperlocalweather'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.realityexpander.weatherhere"
+        applicationId "com.realityexpander.hyperlocalweather"
         minSdk 21
         targetSdk 33
         versionCode 1
