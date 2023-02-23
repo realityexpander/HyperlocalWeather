@@ -32,7 +32,7 @@ fun WeatherForecast(
 
             val listState = rememberLazyListState()
 
-            LaunchedEffect(key1 = true) {
+            LaunchedEffect(state.weatherInfo.weatherDataPerDay[0]) {
                 // get the index of the current hour
                 val index = data.indexOfFirst {
                     it.time.hour == state.weatherInfo.currentWeatherData?.time?.hour
