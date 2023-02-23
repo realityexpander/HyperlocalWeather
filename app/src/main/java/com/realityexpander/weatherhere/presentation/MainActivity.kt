@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -88,17 +89,18 @@ class MainActivity : ComponentActivity() {
                             Spacer(modifier = Modifier.height(16.dp))
 
                             WeatherForecast(state = viewModel.state)
-                            Spacer(modifier = Modifier.height(16.dp))
 
-                            viewModel.state.city?.let {
-                                Text(
-                                    text = "${viewModel.state.city}, ${viewModel.state.country}",
-                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .align(Alignment.Center)
-                                )
+                            AnimatedVisibility(viewModel.state.city!=null) {
+                                Column {
+                                    Spacer(modifier = Modifier.height(40.dp))
+                                    Text(
+                                        text = "${viewModel.state.city}, ${viewModel.state.country}",
+                                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                                        textAlign = TextAlign.Center,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                    )
+                                }
                             }
                         }
                     }
