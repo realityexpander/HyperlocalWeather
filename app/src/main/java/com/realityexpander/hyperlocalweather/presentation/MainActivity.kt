@@ -81,6 +81,21 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .background(DarkBlue)
                     ) {
+
+                        viewModel.state.error?.let { error ->
+                            item {
+                                Text(
+                                    text = error,
+                                    color = Color.Red,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .align(Alignment.Center)
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
+                        }
+
                         item {
                             WeatherCard(
                                 state = viewModel.state,
@@ -104,15 +119,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                    }
-
-                    viewModel.state.error?.let { error ->
-                        Text(
-                            text = error,
-                            color = Color.Red,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
                     }
 
                     PullRefreshIndicator(

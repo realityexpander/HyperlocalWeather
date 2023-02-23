@@ -23,6 +23,8 @@ class WeatherViewModel @Inject constructor(
     var state by mutableStateOf(WeatherState())
         private set
 
+    val noInternetMessage = "\nNo internet connection?\n\nMake sure to enable internet and GPS."
+
     fun loadWeatherInfo() {
         viewModelScope.launch {
             state = state.copy(
@@ -32,12 +34,24 @@ class WeatherViewModel @Inject constructor(
 
             locationTracker.getCurrentLocation()?.let { location ->
 
-                getCityCountryFromLatLng(location.latitude, location.longitude).let { cityCountryPlusCode ->
-                    delay(500)
+                try {
+                    getCityCountryFromLatLng(
+                        location.latitude,
+                        location.longitude
+                    ).let { cityCountryPlusCode ->
+                        delay(500)
+                        state = state.copy(
+                            city = cityCountryPlusCode.first,
+                            country = cityCountryPlusCode.second,
+                            plusCode = cityCountryPlusCode.third
+                        )
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                     state = state.copy(
-                        city = cityCountryPlusCode.first,
-                        country = cityCountryPlusCode.second,
-                        plusCode = cityCountryPlusCode.third
+                        weatherInfo = null,
+                        isLoading = false,
+                        error = e.localizedMessage + noInternetMessage
                     )
                 }
 
@@ -53,7 +67,7 @@ class WeatherViewModel @Inject constructor(
                         state = state.copy(
                             weatherInfo = null,
                             isLoading = false,
-                            error = result.message
+                            error = result.message + noInternetMessage
                         )
                     }
                 }
