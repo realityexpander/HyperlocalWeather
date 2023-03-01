@@ -7,6 +7,8 @@ Local Weather app using Compose
 - Shows Hourly forecast for next 24 hours
 - Uses [https://open-meteo.com](https://open-meteo.com) api
 
+[Google Store Presence for Hyperlocal Weather app](https://play.google.com/store/apps/details?id=com.realityexpander.hyperlocalweather)
+
 # Tech used
 - Retrofit for API calls and Moshi deserialization
 - Shows proper use of `Dagger-Hilt` & SOLID/CLEAN architecture
